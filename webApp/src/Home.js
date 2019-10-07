@@ -79,7 +79,7 @@ export default function Home(){
             nbAvisTotal
         }
         
-        axios.post('http://localhost:5000/', data)
+        axios.post('http://mamadembele.fr:5000/', data)
             .then(res => {
                 setPredictedRate(res.data.rating)
                 setVisible(true)
