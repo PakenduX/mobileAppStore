@@ -61,7 +61,6 @@ export default function Home(){
     const [categorie, setCategorie] = useState('')
     const [nbLang, setNbLang] = useState(0)
     const [nbAvisTotal, setNbAvisTotal] = useState(0)
-    const [nbAvisVersion, setNbAvisVersion] = useState(0)
 
     const submit = (e) => {
         e.preventDefault()
@@ -72,9 +71,7 @@ export default function Home(){
             taille,
             categorie,
             nbLang,
-            nbAvisTotal,
-            nbAvisVersion
-
+            nbAvisTotal
         }
         
         axios.post('http://localhost:5000/', data)
@@ -121,9 +118,6 @@ export default function Home(){
                         </Form.Item>
                         <Form.Item label="Nombre d'avis total *" hasFeedback>
                         {(<InputNumber min={0} defaultValue={0} onChange={(value) => setNbAvisTotal(value)}/>)}
-                        </Form.Item>
-                        <Form.Item label="Nombre d'avis par version *" hasFeedback>
-                        {(<InputNumber min={0} defaultValue={0} onChange={(value) => setNbAvisVersion(value)}/>)}
                         </Form.Item>
                     </Form>
                     <Button 
