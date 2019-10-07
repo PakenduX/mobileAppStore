@@ -5,7 +5,9 @@ import {
     Layout,
     Typography,
     InputNumber,
-    Popover
+    Popover,
+    Modal,
+    Rate
 } from 'antd'
 
 import axios from 'axios'
@@ -53,6 +55,7 @@ const formItemLayout = {
       </div>
   )
 
+
 export default function Home(){
 
     const [prix, setPrix] = useState(0)
@@ -61,6 +64,8 @@ export default function Home(){
     const [categorie, setCategorie] = useState('')
     const [nbLang, setNbLang] = useState(0)
     const [nbAvisTotal, setNbAvisTotal] = useState(0)
+    const [visible, setVisible] = useState(false)
+    const [predictedRate, setPredictedRate] = useState(0)
 
     const submit = (e) => {
         e.preventDefault()
@@ -76,12 +81,18 @@ export default function Home(){
         
         axios.post('http://localhost:5000/', data)
             .then(res => {
-                console.log(res.data)
+                setPredictedRate(res.data.rating)
+                setVisible(true)
             })
             .catch(error => { 
                 console.log(error)
             })
     }
+
+    
+    const handleOk = e => setVisible(false)
+
+    const handleCancel = e => setVisible(false)
 
     return(
         <div className="container">
@@ -133,6 +144,15 @@ export default function Home(){
                     <div style={{color: 'white'}}>Mobile App Store copyright &copy; Thomas  &#38;  Mama</div>
                 </Footer>
             </Layout>
+
+            <Modal
+                title="Prédiction succès"
+                visible={visible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                >
+                <Rate allowHalf defaultValue={predictedRate} />
+            </Modal>
         </div>
     )
 }
